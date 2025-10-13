@@ -13,6 +13,12 @@ password = ""
 #課程點名網址
 check_url = "https://irs.zuvio.com.tw/student5/irs/rollcall/1437439"
 
+#如果有一個為空
+if(not (account and password)):
+    with open('acc_pass.txt', 'r', encoding='utf-8') as f:
+        account = f.readline().strip()
+        password = f.readline().strip()
+
 # 設定 Chrome 選項為無痕模式
 options = Options()
 options.add_argument("--incognito")
