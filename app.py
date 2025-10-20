@@ -44,7 +44,9 @@ while(True):
     element = bs(driver.page_source, 'html.parser').select('#content > div.irs-rollcall > div.i-r-footer-box > div')
     if len(element):
         e = element[0]
-        if element.text == '我到了':
+        the_text = e.text.strip()
+        if the_text == '我到了':
+            time.sleep(30)
             driver.find_element(By.CSS_SELECTOR, '#submit-make-rollcall').click()
             # 獲取當前的本地時間
             local_time = time.localtime()  # 返回 struct_time 物件
@@ -53,7 +55,7 @@ while(True):
             with open("check_log.txt", 'a', encoding='utf-8') as f:
                 f.write(formatted_time+' 成功簽到\n')
             print(formatted_time+' 成功簽到')
-        else:
+        elif the_text != '已簽到':
             print("ERROR")
             break
     time.sleep(25)
